@@ -1,2 +1,30 @@
 CLAUDE.local.md
 .claude/settings.local.json
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+/build
+next-env.d.ts
+*.tsbuildinfo
+
+# misc
+.DS_Store
+npm-debug.log*
+.env*
+.vercel
+*.pem
+
+# vendored worker/wasm assets copied from node_modules at install time
+/public/vendor/
+
+# real financial data must never be committed
+*.pdf
+*.xlsx
+/statements/

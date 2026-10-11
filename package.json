@@ -1,0 +1,46 @@
+{
+  "name": "budgeting-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "NEXT_TELEMETRY_DISABLED=1 next dev",
+    "build": "NEXT_TELEMETRY_DISABLED=1 next build",
+    "start": "NEXT_TELEMETRY_DISABLED=1 next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "postinstall": "node scripts/copy-vendor-assets.mjs",
+    "predev": "node scripts/copy-vendor-assets.mjs",
+    "prebuild": "node scripts/copy-vendor-assets.mjs"
+  },
+  "dependencies": {
+    "@tesseract.js-data/eng": "1.0.0",
+    "chart.js": "4.5.1",
+    "exceljs": "4.4.0",
+    "next": "16.4.0",
+    "pdfjs-dist": "6.4.299",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "tesseract.js": "7.0.0",
+    "zustand": "5.0.15"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "24.19.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "prettier": "3.9.10",
+    "tailwindcss": "^4",
+    "typescript": "^5",
+    "vitest": "5.0.3"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "optionalDependencies": {
+    "@rolldown/binding-darwin-arm64": "1.2.13"
+  }
+}

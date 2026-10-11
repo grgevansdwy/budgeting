@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Example Bank - synthetic statement</title>
+    <!-- Synthetic test fixture. Every name, number and transaction here is made up. -->
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #111;
+        background: #fff;
+        margin: 0;
+      }
+      .page {
+        width: 760px;
+        margin: 0 auto;
+        padding: 32px 28px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 3px solid #1f4e7a;
+        padding-bottom: 12px;
+      }
+      .brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1f4e7a;
+      }
+      .fake {
+        font-size: 11px;
+        color: #a00;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .meta {
+        text-align: right;
+        line-height: 1.5;
+      }
+      h2 {
+        font-size: 15px;
+        margin: 24px 0 6px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        text-align: left;
+        border-bottom: 1px solid #555;
+        padding: 5px 6px;
+        font-size: 12px;
+      }
+      td {
+        padding: 5px 6px;
+        border-bottom: 1px solid #ddd;
+        white-space: nowrap;
+      }
+      .num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+      .summary td {
+        border-bottom: none;
+        padding: 3px 6px;
+      }
+      .total td {
+        font-weight: bold;
+        border-top: 1px solid #555;
+        border-bottom: none;
+      }
+      footer {
+        margin-top: 28px;
+        font-size: 11px;
+        color: #555;
+      }
+      @media print {
+        .page {
+          width: auto;
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div>
+          <div class="brand">Example Bank</div>
+          <div class="fake">Synthetic test statement - not a real account</div>
+        </div>
+        <div class="meta">
+          <div>Everyday Checking XXXX-0000</div>
+          <div>Statement period: Oct 01, 2026 - Oct 31, 2026</div>
+        </div>
+      </header>
+
+      <h2>Account summary</h2>
+      <table class="summary">
+        <tbody>
+          <tr>
+            <td>Opening balance</td>
+            <td class="num">2,450.00</td>
+          </tr>
+          <tr>
+            <td>Total withdrawals</td>
+            <td class="num">3,022.51</td>
+          </tr>
+          <tr>
+            <td>Total deposits</td>
+            <td class="num">3,200.37</td>
+          </tr>
+          <tr class="total">
+            <td>Closing balance</td>
+            <td class="num">2,627.86</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Transactions</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th class="num">Withdrawals</th>
+            <th class="num">Deposits</th>
+            <th class="num">Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10/01/2026</td>
+            <td>RENT PAYMENT EXAMPLE PROPERTIES</td>
+            <td class="num">1,400.00</td>
+            <td class="num"></td>
+            <td class="num">1,050.00</td>
+          </tr>
+          <tr>
+            <td>10/02/2026</td>
+            <td>GREENLEAF MARKET</td>
+            <td class="num">47.65</td>
+            <td class="num"></td>
+            <td class="num">1,002.35</td>
+          </tr>
+          <tr>
+            <td>10/05/2026</td>
+            <td>SAMPLE CARD CO PAYMENT XXXX-0000</td>
+            <td class="num">842.17</td>
+            <td class="num"></td>
+            <td class="num">160.18</td>
+          </tr>
+          <tr>
+            <td>10/09/2026</td>
+            <td>ATM WITHDRAWAL EXAMPLE BANK</td>
+            <td class="num">60.00</td>
+            <td class="num"></td>
+            <td class="num">100.18</td>
+          </tr>
+          <tr>
+            <td>10/15/2026</td>
+            <td>PAYROLL DEPOSIT ACME SAMPLE CORP</td>
+            <td class="num"></td>
+            <td class="num">3,200.00</td>
+            <td class="num">3,300.18</td>
+          </tr>
+          <tr>
+            <td>10/16/2026</td>
+            <td>CITY POWER AND LIGHT UTILITY</td>
+            <td class="num">88.42</td>
+            <td class="num"></td>
+            <td class="num">3,211.76</td>
+          </tr>
+          <tr>
+            <td>10/20/2026</td>
+            <td>TRANSFER TO SAVINGS XXXX-0001</td>
+            <td class="num">500.00</td>
+            <td class="num"></td>
+            <td class="num">2,711.76</td>
+          </tr>
+          <tr>
+            <td>10/23/2026</td>
+            <td>FRESHFIELD GROCERY 0142</td>
+            <td class="num">39.27</td>
+            <td class="num"></td>
+            <td class="num">2,672.49</td>
+          </tr>
+          <tr>
+            <td>10/28/2026</td>
+            <td>EXAMPLE TELECOM MOBILE PLAN</td>
+            <td class="num">45.00</td>
+            <td class="num"></td>
+            <td class="num">2,627.49</td>
+          </tr>
+          <tr>
+            <td>10/30/2026</td>
+            <td>INTEREST PAID</td>
+            <td class="num"></td>
+            <td class="num">0.37</td>
+            <td class="num">2,627.86</td>
+          </tr>
+          <tr class="total">
+            <td></td>
+            <td>Totals</td>
+            <td class="num">3,022.51</td>
+            <td class="num">3,200.37</td>
+            <td class="num">2,627.86</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <footer>
+        Example Bank is a made-up bank. This page exists only to test statement
+        import.
+      </footer>
+    </div>
+  </body>
+</html>

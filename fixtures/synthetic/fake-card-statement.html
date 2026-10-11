@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sample Card Co - synthetic statement</title>
+    <!-- Synthetic test fixture. Every name, number and transaction here is made up. -->
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        color: #111;
+        background: #fff;
+        margin: 0;
+      }
+      .page {
+        width: 760px;
+        margin: 0 auto;
+        padding: 32px 28px;
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 3px solid #7a1f5c;
+        padding-bottom: 12px;
+      }
+      .brand {
+        font-size: 24px;
+        font-weight: bold;
+        color: #7a1f5c;
+      }
+      .fake {
+        font-size: 11px;
+        color: #a00;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .meta {
+        text-align: right;
+        line-height: 1.5;
+      }
+      h2 {
+        font-size: 15px;
+        margin: 24px 0 6px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        text-align: left;
+        border-bottom: 1px solid #555;
+        padding: 5px 6px;
+        font-size: 12px;
+      }
+      td {
+        padding: 5px 6px;
+        border-bottom: 1px solid #ddd;
+        white-space: nowrap;
+      }
+      .num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+      }
+      .summary td {
+        border-bottom: none;
+        padding: 3px 6px;
+      }
+      .total td {
+        font-weight: bold;
+        border-top: 1px solid #555;
+        border-bottom: none;
+      }
+      footer {
+        margin-top: 28px;
+        font-size: 11px;
+        color: #555;
+      }
+      @media print {
+        .page {
+          width: auto;
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div>
+          <div class="brand">Sample Card Co</div>
+          <div class="fake">Synthetic test statement - not a real account</div>
+        </div>
+        <div class="meta">
+          <div>Account number: XXXX-0000</div>
+          <div>Statement period: Sep 12, 2026 - Oct 11, 2026</div>
+          <div>Payment due date: Nov 05, 2026</div>
+        </div>
+      </header>
+
+      <h2>Account summary</h2>
+      <table class="summary">
+        <tbody>
+          <tr>
+            <td>Previous balance</td>
+            <td class="num">842.17</td>
+          </tr>
+          <tr>
+            <td>Payments and credits</td>
+            <td class="num">-877.16</td>
+          </tr>
+          <tr>
+            <td>Purchases</td>
+            <td class="num">564.09</td>
+          </tr>
+          <tr>
+            <td>Fees and interest charged</td>
+            <td class="num">0.00</td>
+          </tr>
+          <tr class="total">
+            <td>New balance</td>
+            <td class="num">529.10</td>
+          </tr>
+          <tr>
+            <td>Minimum payment due</td>
+            <td class="num">25.00</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Payments and credits</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th class="num">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>09/27</td>
+            <td>FAKE OUTFITTERS RETURN</td>
+            <td class="num">-34.99</td>
+          </tr>
+          <tr>
+            <td>10/05</td>
+            <td>PAYMENT THANK YOU</td>
+            <td class="num">-842.17</td>
+          </tr>
+          <tr class="total">
+            <td></td>
+            <td>Total payments and credits</td>
+            <td class="num">-877.16</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Purchases</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th class="num">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>09/12</td>
+            <td>FRESHFIELD GROCERY 0142</td>
+            <td class="num">64.38</td>
+          </tr>
+          <tr>
+            <td>09/14</td>
+            <td>NOODLE HOUSE EXAMPLE</td>
+            <td class="num">23.50</td>
+          </tr>
+          <tr>
+            <td>09/15</td>
+            <td>METRO TRANSIT FARE RELOAD</td>
+            <td class="num">40.00</td>
+          </tr>
+          <tr>
+            <td>09/17</td>
+            <td>STREAMFLIX SUBSCRIPTION</td>
+            <td class="num">15.99</td>
+          </tr>
+          <tr>
+            <td>09/19</td>
+            <td>FAKE OUTFITTERS</td>
+            <td class="num">34.99</td>
+          </tr>
+          <tr>
+            <td>09/21</td>
+            <td>FRESHFIELD GROCERY 0142</td>
+            <td class="num">82.11</td>
+          </tr>
+          <tr>
+            <td>09/23</td>
+            <td>RIDEALONG TRIP</td>
+            <td class="num">18.75</td>
+          </tr>
+          <tr>
+            <td>09/25</td>
+            <td>CORNER CAFE SAMPLE</td>
+            <td class="num">9.40</td>
+          </tr>
+          <tr>
+            <td>09/28</td>
+            <td>TUNEBOX MUSIC MONTHLY</td>
+            <td class="num">10.99</td>
+          </tr>
+          <tr>
+            <td>09/30</td>
+            <td>SAMPLE PIZZERIA</td>
+            <td class="num">31.20</td>
+          </tr>
+          <tr>
+            <td>10/02</td>
+            <td>GREENLEAF MARKET</td>
+            <td class="num">47.65</td>
+          </tr>
+          <tr>
+            <td>10/03</td>
+            <td>FUELSTOP 0007</td>
+            <td class="num">52.30</td>
+          </tr>
+          <tr>
+            <td>10/06</td>
+            <td>SUSHI SAMPLE BAR</td>
+            <td class="num">58.00</td>
+          </tr>
+          <tr>
+            <td>10/08</td>
+            <td>CLOUDBOX STORAGE</td>
+            <td class="num">2.99</td>
+          </tr>
+          <tr>
+            <td>10/10</td>
+            <td>FRESHFIELD GROCERY 0142</td>
+            <td class="num">71.84</td>
+          </tr>
+          <tr class="total">
+            <td></td>
+            <td>Total purchases</td>
+            <td class="num">564.09</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <footer>
+        Sample Card Co is a made-up issuer. This page exists only to test
+        statement import.
+      </footer>
+    </div>
+  </body>
+</html>

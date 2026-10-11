@@ -1,0 +1,10 @@
+.next
+node_modules
+public/vendor
+templates
+.claude
+package-lock.json
+docs
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
