@@ -11,7 +11,8 @@ import type { Worker as TesseractWorker } from "tesseract.js";
 import { buildLines, type PositionedItem } from "./lines";
 import type { TextLine } from "./types";
 
-const VENDOR_DIR = "/vendor/tesseract";
+// NEXT_PUBLIC_BASE_PATH is set when the app is hosted under a sub-path (GitHub Pages).
+const VENDOR_DIR = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/vendor/tesseract`;
 
 const TARGET_WIDTH = 2000; // small screenshots are enlarged to about this width
 const MAX_UPSCALE = 3;
