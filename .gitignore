@@ -27,4 +27,15 @@ npm-debug.log*
 # real financial data must never be committed
 *.pdf
 *.xlsx
+*.xls
+*.csv
+*.ofx
+*.qfx
+*.qif
 /statements/
+/exports/
+
+# editor and OS noise
+.idea/
+.vscode/
+*.log
