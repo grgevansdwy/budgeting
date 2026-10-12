@@ -7,16 +7,20 @@ import { computeTotals } from "@/lib/ledger/totals";
 import { useBudgetStore } from "@/lib/store/store";
 import { formatTodo, selectTodos } from "@/lib/todo/todos";
 import { AddCategoryDialog } from "./AddCategoryDialog";
+import { AddTransactionDialog } from "./AddTransactionDialog";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { LedgerTable } from "./LedgerTable";
 import { needsReview } from "./reviewFlags";
 import { plural, rowsOfKind } from "./rows";
 import { TotalsBar } from "./TotalsBar";
 
-type OpenDialog = {
-  kind: "split" | "delete" | "category";
-  transactionId: string;
-} | null;
+type OpenDialog =
+  | {
+      kind: "split" | "delete" | "category";
+      transactionId: string;
+    }
+  | { kind: "add"; rowKind: "expense" | "income" }
+  | null;
 
 /** The expenses and income tables for the loaded month. Renders nothing until a month is loaded. */
 export function Ledger() {
@@ -79,9 +83,10 @@ export function Ledger() {
   ].filter((note): note is string => typeof note === "string");
 
   // A dialog whose row has gone (deleted, or another month loaded) simply does not render.
-  const dialogRow = dialog
-    ? transactions.find((t) => t.id === dialog.transactionId)
-    : undefined;
+  const dialogRow =
+    dialog && dialog.kind !== "add"
+      ? transactions.find((t) => t.id === dialog.transactionId)
+      : undefined;
   const pendingTodos =
     dialog?.kind === "delete" && dialogRow ? selectTodos([dialogRow]) : [];
 
@@ -107,6 +112,8 @@ export function Ledger() {
           onRequestDelete={requestDelete}
           onOpenSplit={openSplit}
           onAddCategory={openAddCategory}
+          addLabel="Add expense"
+          onAddRow={() => setDialog({ kind: "add", rowKind: "expense" })}
         />
         <LedgerTable
           title="Income"
@@ -118,8 +125,18 @@ export function Ledger() {
           onRequestDelete={requestDelete}
           onOpenSplit={openSplit}
           onAddCategory={openAddCategory}
+          addLabel="Add income"
+          onAddRow={() => setDialog({ kind: "add", rowKind: "income" })}
         />
       </div>
+
+      {dialog?.kind === "add" && workingSet && (
+        <AddTransactionDialog
+          kind={dialog.rowKind}
+          month={workingSet.month}
+          onClose={closeDialog}
+        />
+      )}
 
       {dialog?.kind === "split" && dialogRow && (
         <SplitDialog transactionId={dialogRow.id} onClose={closeDialog} />

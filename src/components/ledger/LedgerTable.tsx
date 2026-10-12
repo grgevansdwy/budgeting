@@ -6,6 +6,7 @@ import { formatCents } from "@/lib/money";
 import type { Category, Cents, Transaction } from "@/lib/types";
 import { LedgerRow } from "./LedgerRow";
 import { plural } from "./rows";
+import { secondaryButton } from "./styles";
 
 export interface LedgerTableProps {
   title: string;
@@ -20,6 +21,9 @@ export interface LedgerTableProps {
   onRequestDelete: (transactionId: string) => void;
   onOpenSplit: (transactionId: string) => void;
   onAddCategory: (transactionId: string) => void;
+  /** Label and handler for the button that adds a row by hand. */
+  addLabel: string;
+  onAddRow: () => void;
 }
 
 const th = "px-2 py-1.5 font-medium";
@@ -34,6 +38,8 @@ export function LedgerTable({
   onRequestDelete,
   onOpenSplit,
   onAddCategory,
+  addLabel,
+  onAddRow,
 }: LedgerTableProps) {
   const running = useMemo(() => runningTotals(rows), [rows]);
   const headingId = useId();
@@ -50,10 +56,15 @@ export function LedgerTable({
             {plural(rows.length, "row", "rows")}
           </span>
         </h2>
-        <p className="text-base font-semibold text-zinc-900 tabular-nums">
-          <span className="sr-only">Total </span>
-          {formatCents(totalCents)}
-        </p>
+        <div className="flex items-center gap-3">
+          <button type="button" className={secondaryButton} onClick={onAddRow}>
+            + {addLabel}
+          </button>
+          <p className="text-base font-semibold text-zinc-900 tabular-nums">
+            <span className="sr-only">Total </span>
+            {formatCents(totalCents)}
+          </p>
+        </div>
       </header>
 
       {rows.length === 0 ? (

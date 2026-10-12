@@ -22,6 +22,17 @@ export interface TransactionPatch {
   kind?: TransactionKind;
 }
 
+export interface NewTransactionInput {
+  kind: TransactionKind;
+  date: string; // ISO YYYY-MM-DD
+  description: string;
+  amountCents: Cents; // positive
+  categoryId: string;
+}
+
+export const MANUAL_SOURCE_ID = "manual";
+export const MANUAL_SOURCE_NAME = "Added manually";
+
 export interface BudgetState {
   settings: Settings;
   workingSet: WorkingSet | null;
@@ -33,6 +44,8 @@ export interface BudgetState {
   /** Edit a row. Marks it reviewed. amountCents is ignored on split rows (edit the split instead). */
   updateTransaction: (id: string, patch: TransactionPatch) => void;
   deleteTransaction: (id: string) => void;
+  /** Add a row typed in by the user to the loaded month. Does nothing when no month is loaded. */
+  addTransaction: (input: NewTransactionInput) => void;
   /** Tag or untag a row as a transfer (excluded from totals). Ignored when tagging a split row. */
   setTransfer: (id: string, isTransfer: boolean) => void;
   markReviewed: (id: string) => void;
@@ -103,6 +116,37 @@ export const useBudgetStore = create<BudgetState>()(
             return next;
           }),
         })),
+
+      addTransaction: (input) =>
+        set((s) => {
+          if (!s.workingSet) return s;
+          assertCents(input.amountCents);
+          if (input.amountCents <= 0) return s;
+          const row: Transaction = {
+            id: crypto.randomUUID(),
+            date: input.date,
+            description: input.description,
+            amountCents: input.amountCents,
+            kind: input.kind,
+            confidence: 1,
+            flags: [],
+            page: 0,
+            rawText: "",
+            sourceFileId: MANUAL_SOURCE_ID,
+            sourceFileName: MANUAL_SOURCE_NAME,
+            categoryId: input.categoryId,
+            isTransfer: false,
+            transferReason: null,
+            duplicateDismissed: false,
+            reviewed: true,
+            split: null,
+          };
+          // Stable sort keeps the new row after existing rows of the same date.
+          const transactions = [...s.workingSet.transactions, row].sort(
+            (a, b) => (a.date < b.date ? -1 : a.date > b.date ? 1 : 0),
+          );
+          return { workingSet: { ...s.workingSet, transactions } };
+        }),
 
       deleteTransaction: (id) =>
         set((s) =>

@@ -11,7 +11,8 @@ import { buildLines, type PositionedItem } from "./lines";
 import { recognizeImage } from "./ocr";
 import type { TextLine } from "./types";
 
-const VENDOR_DIR = "/vendor/pdfjs";
+// NEXT_PUBLIC_BASE_PATH is set when the app is hosted under a sub-path (GitHub Pages).
+const VENDOR_DIR = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/vendor/pdfjs`;
 const MIN_TEXT_ITEMS = 5; // fewer non-blank items than this means the page is a scan
 const OCR_RENDER_SCALE = 2;
 
@@ -72,6 +73,30 @@ function vendorUrl(path: string): string {
 }
 
 /**
+ * pdf.js's getTextContent() does `for await (const value of readableStream)`, but Safari has no
+ * async iterator on ReadableStream, so every PDF fails there with "undefined is not a function".
+ * The legacy build does not polyfill this one, so add it before pdf.js runs.
+ */
+function polyfillReadableStreamAsyncIterator(): void {
+  const proto = ReadableStream.prototype as ReadableStream & {
+    [Symbol.asyncIterator]?: unknown;
+  };
+  if (typeof proto[Symbol.asyncIterator] === "function") return;
+  proto[Symbol.asyncIterator] = async function* (this: ReadableStream) {
+    const reader = this.getReader();
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) return;
+        yield value;
+      }
+    } finally {
+      reader.releaseLock();
+    }
+  };
+}
+
+/**
  * Extracts positioned text lines from every page of a PDF, in reading order.
  * Coordinates are PDF points at scale 1 with the origin at the top-left of each page.
  */
@@ -79,7 +104,11 @@ export async function extractPdfLines(
   data: ArrayBuffer,
   onProgress?: (fraction: number, stage: string) => void,
 ): Promise<TextLine[]> {
-  const pdfjs = await import("pdfjs-dist");
+  // The legacy build bundles fallbacks for very new JavaScript (Math.sumPrecise,
+  // Map.prototype.getOrInsertComputed) that the modern build calls unguarded. Without them,
+  // Safari and older Chrome fail on PDFs with embedded fonts, which most real statements have.
+  polyfillReadableStreamAsyncIterator();
+  const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
   pdfjs.GlobalWorkerOptions.workerSrc = `${VENDOR_DIR}/pdf.worker.min.mjs`;
 
   const loadingTask = pdfjs.getDocument({

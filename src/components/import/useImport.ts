@@ -181,6 +181,11 @@ export function useImport(): ImportState {
           });
         } catch (error) {
           if (isStale()) continue;
+          // The on-screen message is generic; the browser console keeps the real cause.
+          console.error(
+            "[import] could not read file",
+            error instanceof Error ? (error.cause ?? error) : error,
+          );
           patchItem(entry.key, {
             status: "error",
             error: messageForExtraction(error),

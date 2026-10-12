@@ -55,6 +55,19 @@ export const LedgerRow = memo(function LedgerRow({
       <td className="max-w-[16rem] min-w-[9rem] px-2 py-1">
         <DescriptionCell id={t.id} description={t.description} />
 
+        <div
+          className="mt-0.5 truncate text-[11px] leading-4 text-zinc-400"
+          title={
+            t.page > 0
+              ? `${t.sourceFileName}, page ${t.page}`
+              : t.sourceFileName
+          }
+        >
+          <span className="sr-only">From file: </span>
+          {t.sourceFileName}
+          {t.page > 0 && ` · p.${t.page}`}
+        </div>
+
         {t.isTransfer && (
           <div className="mt-0.5">
             <span

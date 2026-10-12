@@ -28,7 +28,8 @@ const ENG_DATA_VARIANT = "4.0.0_best_int";
 /** [source relative to node_modules, destination relative to public/vendor] */
 const assets = [
   // pdf.js
-  ["pdfjs-dist/build/pdf.worker.min.mjs", "pdfjs/pdf.worker.min.mjs"],
+  // Legacy build: matches the legacy library imported in src/lib/extract/pdf.ts.
+  ["pdfjs-dist/legacy/build/pdf.worker.min.mjs", "pdfjs/pdf.worker.min.mjs"],
   ["pdfjs-dist/cmaps", "pdfjs/cmaps"],
   ["pdfjs-dist/standard_fonts", "pdfjs/standard_fonts"],
   ["pdfjs-dist/wasm", "pdfjs/wasm"], // JPEG 2000 / JBIG2 / colour decoders, used when rendering scans
@@ -88,7 +89,7 @@ if (missing.length > 0) {
 
 // pdf.js refuses to run when the worker and the library versions differ.
 const workerSource = readFileSync(
-  join(modules, "pdfjs-dist/build/pdf.worker.min.mjs"),
+  join(modules, "pdfjs-dist/legacy/build/pdf.worker.min.mjs"),
   "utf8",
 );
 if (!workerSource.includes(`"${versions["pdfjs-dist"]}"`)) {
